@@ -10,8 +10,8 @@
 
 
         <name>Cresco Skeleton Web</name>
-        <description>Cresco framework dashboard</description>
-        <url>https://github.com/CrescoEdge/repo</url>
+        <description>Cresco framework skeleton web</description>
+        <url>https://github.com/CrescoEdge/skeletonweb</url>
 
         <licenses>
             <license>
@@ -34,8 +34,8 @@
 
 
         <scm>
-            <connection>scm:git:git://github.com/CrescoEdge/dashboard.git</connection>
-            <developerConnection>scm:git:git://github.com/CrescoEdge/dashboard.git</developerConnection>
+            <connection>scm:git:git://github.com/CrescoEdge/skeletonweb.git</connection>
+            <developerConnection>scm:git:git://github.com/CrescoEdge/skeletonweb.git</developerConnection>
             <url>git@github.com:CrescoEdge/dashboard.git</url>
         </scm>
 
@@ -309,7 +309,7 @@
                     <configuration>
                         <repositoryId>ossrh</repositoryId>
                         <ignoreLock>true</ignoreLock>
-                        <remoteOBR>https://oss.sonatype.org/content/repositories/snapshots/io/cresco/dashboard</remoteOBR>
+                        <remoteOBR>https://oss.sonatype.org/content/repositories/snapshots/io/cresco/skeletonweb</remoteOBR>
                         <instructions>
                             <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
                             <Bundle-Name>Dashboard Plugin</Bundle-Name>
