@@ -1,44 +1,34 @@
 package io.cresco.skeletonweb.controllers;
 
 import io.cresco.library.plugin.PluginBuilder;
-import io.cresco.library.utilities.CLogger;
 import io.cresco.skeletonweb.Plugin;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-
+/** Example JAX-RS resource. Jersey creates one instance per request. */
 @Path("/")
 public class Example {
-    private PluginBuilder plugin;
-    private CLogger logger;
-
-    public Example() {
-
-        if(plugin == null) {
-            if(Plugin.pluginBuilder != null) {
-                plugin = Plugin.pluginBuilder;
-                logger = plugin.getLogger(Example.class.getName(), CLogger.Level.Info);
-            }
-        }
-    }
 
     @GET
     @Produces(MediaType.TEXT_HTML)
     public Response index() {
-        try {
-
-            String responseString = "Hello World!";
-
-            return Response.ok(responseString).build();
-
-        }  catch (Exception e) {
-            e.printStackTrace();
-            return Response.ok("Server error: " + e.getMessage()).build();
-        }
+        return Response.ok("Hello World!").build();
     }
 
-
-
+    /** Identity of the plugin serving this request: {"region":..,"agent":..,"plugin":..}. */
+    @GET
+    @Path("info")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response info() {
+        PluginBuilder plugin = Plugin.pluginBuilder;
+        if (plugin == null) {
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("{\"status\":\"starting\"}").build();
+        }
+        String json = "{\"region\":\"" + plugin.getRegion() + "\",\"agent\":\"" + plugin.getAgent()
+                + "\",\"plugin\":\"" + plugin.getPluginID() + "\"}";
+        return Response.ok(json).build();
+    }
 }

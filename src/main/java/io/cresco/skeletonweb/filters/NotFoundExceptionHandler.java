@@ -1,26 +1,19 @@
 package io.cresco.skeletonweb.filters;
 
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.ext.Provider;
 
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
-
-
+/** Maps unknown paths to a plain 404 page. */
 @Provider
 public class NotFoundExceptionHandler implements ExceptionMapper<NotFoundException> {
-    @Context
-    HttpHeaders headers;
-
+    @Override
     public Response toResponse(NotFoundException ex) {
-        try {
-            String responseString = "Sorry, the page was not found";
-
-            return Response.status(404).entity(responseString).build();
-        }  catch (Exception e) {
-            return Response.ok("IOException: " + e.getMessage()).build();
-        }
+        return Response.status(Response.Status.NOT_FOUND)
+                .type(MediaType.TEXT_PLAIN)
+                .entity("Sorry, the page was not found")
+                .build();
     }
 }
